@@ -21,6 +21,11 @@ namespace GC_Fitness_24
         public void AddMember(Members m)
         {
             MembersList.Add(m);
+            if(m is SingleClub)
+            {
+                (SingleClub)m.ClubName = Name;
+                (SingleClub)m.ClubAddress = Address;
+            }
             Console.WriteLine("Member Added");
         }
 
@@ -50,6 +55,7 @@ namespace GC_Fitness_24
         }
 
         // checks to see if member is on the list, returns true if they are, false if not
+        /* idk if this class even needs to handle this
         public bool ClubCheckIn(Members m)
         {
             try
@@ -70,15 +76,16 @@ namespace GC_Fitness_24
                 return false;
             }
         }
-
+        */
 
         // returns monthly fees due and membership points if any in a string
         public string GenerateBill(Members m)
         {
+
             string bill = $"{m.Name} Amount Dues: 20";
-            if(MultiClub.InstanceOf(m)) // not sure if this correct
+            if(m is MultiClub) // not sure if this correct
             {
-                bill += $"\nMembership Points: {m.Points}"; // need to cast
+                bill += $"\nMembership Points: {(MultiClub)m.Points}"; // need to cast
             }
             return bill;
         }
