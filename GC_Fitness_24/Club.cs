@@ -9,12 +9,16 @@ namespace GC_Fitness_24
         public string Name { get; set; }
         public string Address { get; set; }
 
+        public int MonthlyDue { get; set; }
+
+
         public List<Members>  MembersList { get; set; }
 
-        public Club(string Name, string Address)
+        public Club(string Name, string Address, int MonthlyDue)
         {
             this.Name = Name;
             this.Address = Address;
+            this.MonthlyDue = MonthlyDue;
         }
 
         // adds a member to the list of registered members, might need to check for dupes
@@ -54,38 +58,18 @@ namespace GC_Fitness_24
             }
         }
 
-        // checks to see if member is on the list, returns true if they are, false if not
-        /* idk if this class even needs to handle this
-        public bool ClubCheckIn(Members m)
-        {
-            try
-            {
-                if(MembersList.Contains(m))
-                {
-                    m.CheckIn();
-                    return true;
-                }
-                else
-                {
-                    throw new Exception("Not found on the List, Find a new club");
-                }
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine(e.Message);
-                return false;
-            }
-        }
-        */
-
         // returns monthly fees due and membership points if any in a string
         public string GenerateBill(Members m)
         {
 
-            string bill = $"{m.Name} Amount Dues: 20";
-            if(m is MultiClub) // not sure if this correct
+            string bill = $"{m.Name} Amount Dues: $";
+            if(m is MultiClub) // membership have $40 for monthly fee
             {
-                bill += $"\nMembership Points: {(MultiClub)m.Points}"; // need to cast
+                bill += $"40\nMembership Points: {(MultiClub)m.Points}"; // need to cast
+            }
+            else
+            {
+                bill += $"{MonthlyDue.ToString()}";
             }
             return bill;
         }
