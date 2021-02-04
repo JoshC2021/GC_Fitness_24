@@ -7,6 +7,7 @@ namespace GC_Fitness_24
     class MultiClub : Members
     {
         public int Points { get; set; }
+        //membership type 
         public MultiClub(string name, string id, int points) : base(name, id)
         {
             this.Points = points;
