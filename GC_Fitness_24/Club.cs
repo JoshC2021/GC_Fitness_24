@@ -28,8 +28,8 @@ namespace GC_Fitness_24
             if(m is SingleClub)
             {
                 SingleClub temp = (SingleClub)m;
-                temp.ClubName = Name;
-                temp.ClubAddress = Address;
+                temp.HomeClub = Name;
+                //temp.ClubAddress = Address;
             }
             Console.WriteLine("Member Added");
         }
