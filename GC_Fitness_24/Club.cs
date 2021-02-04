@@ -27,8 +27,9 @@ namespace GC_Fitness_24
             MembersList.Add(m);
             if(m is SingleClub)
             {
-                (SingleClub)m.ClubName = Name;
-                (SingleClub)m.ClubAddress = Address;
+                SingleClub temp = (SingleClub)m;
+                temp.ClubName = Name;
+                temp.ClubAddress = Address;
             }
             Console.WriteLine("Member Added");
         }
@@ -65,7 +66,9 @@ namespace GC_Fitness_24
             string bill = $"{m.Name} Amount Dues: $";
             if(m is MultiClub) // membership have $40 for monthly fee
             {
-                bill += $"40\nMembership Points: {(MultiClub)m.Points}"; // need to cast
+                MultiClub temp = (MultiClub)m;
+
+                bill += $"40\nMembership Points: {temp.Points}"; // need to cast
             }
             else
             {
