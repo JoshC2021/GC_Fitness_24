@@ -6,25 +6,25 @@ namespace GC_Fitness_24
 {
     class MultiClub : Members
     {
-        public int points { get; set; }
-        public MultiClub(string Name, string Id, int Points) : base(Name, Id)
+        public int Points { get; set; }
+        public MultiClub(string name, string id, int points) : base(name, id)
         {
-            this.points = Points;
+            this.Points = points;
         }
 
         // Multi-Club Members: a variable that stores their membership points.        
         public override void CheckIn(Club club)
         {
-            this.points += 100;
+            this.Points += 100;
         }
 
         // The CheckIn method adds to their membership points.
         public override string ToString()
         {
             string output = "";
-            output += $"Name: {this.name}\n";
-            output += $"Id: {this.id}\n";
-            output += $"Balance: {this.points} Points\n";
+            output += $"Name: {this.Name}\n";
+            output += $"Id: {this.Id}\n";
+            output += $"Balance: {this.Points} Points\n";
             return output;
         }
     }
