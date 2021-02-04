@@ -6,13 +6,13 @@ namespace GC_Fitness_24
 {
     abstract class Members
     {
-        public string id { get; set; }
-        public string name { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
 
-        public Members(string Id, string Name)
+        public Members(string id, string name)
         {
-            this.id = Id;
-            this.name = Name;
+            this.Id = id;
+            this.Name = name;
         }
 
         public abstract void CheckIn(Club club);
@@ -20,8 +20,8 @@ namespace GC_Fitness_24
         public override string ToString()
         {
             string output = "";
-            output += $"Name: {this.name}\n";
-            output += $"Id: {this.id}\n";
+            output += $"Name: {this.Name}\n";
+            output += $"Id: {this.Id}\n";
             return output;
         }
     }
