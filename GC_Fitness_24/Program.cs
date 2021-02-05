@@ -111,12 +111,19 @@ namespace GC_Fitness_24
                         //Clubs[0].GenerateBill() a;
                         Console.WriteLine("Please enter the full name for the invoice you would like to print.");
                         string mem3 = Console.ReadLine();
-                        CheckNum(mem3, 10); // CHANGE TO LIST.COUNT 
+                        CheckNum(mem3, membersList.Count -1); 
                         int member3 = int.Parse(mem3);
                         Console.WriteLine($"You have selected member {member3}. Is this correct? Y/N");
                         if (Console.ReadLine() == "y" || (Console.ReadLine() == "Y"))
                         {
-                            Console.WriteLine("WHATEVER NAME AND POINTS");
+                            foreach (Members m in establishment.MembersList)
+                            {
+                                if (m.Name.Equals(member3))
+                                {
+                                    establishment;
+                                }
+                            }
+
                         }
                         else
                         {
@@ -184,7 +191,7 @@ namespace GC_Fitness_24
             if (String.IsNullOrEmpty(choice))
             {
                 Console.WriteLine("Please enter a valid input!");
-                return true;
+                return false;
             }
             else
             {
@@ -203,26 +210,12 @@ namespace GC_Fitness_24
                 }
             }
         }
-        public static void RemoveMember()
-        {
-            string name = Console.ReadLine().Trim().ToLower();
 
-            //for (int i = 0; i < Member.Count; i++)
-            //{
-            //Member t = MemberList[i];
-
-            //if (t.OwnerName.ToLower() == name)
-            //{
-            // MemberList.RemoveAt(i);
-            //i--;
-            //}
-            //}
-        }
         public static Members FindMember(List<Members> memberList)
         {
             Console.WriteLine("Please enter the full name of the member");
             string name = Console.ReadLine().Trim().ToLower();
-            foreach(Members m in memberList)
+            foreach (Members m in memberList)
             {
                 if (name == m.Name.ToLower())
                 {
@@ -236,7 +229,30 @@ namespace GC_Fitness_24
                 }
             }
             return null;
-           //this is a test 
+            //this is a test 
+
+        }
+        static bool CheckName(string name)
+        {// validates name is a valid input - Must be first and last, properly capitalized.
+
+
+            if (String.IsNullOrEmpty(name))
+            {
+                Console.WriteLine("Please enter a valid input!");
+                return false;
+            }
+            else
+            {
+                if (Regex.Match(name, "^([A-Z][a-z]+([ ]?[a-z]?['-]?[A-Z][a-z]+)*)*$").Success)
+                {
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine("Please enter a valid input!");
+                    return false;
+                }
+            }
 
         }
 
