@@ -11,6 +11,8 @@ namespace GC_Fitness_24
         public static List<Members> membersList = new List<Members>();
         static void Main(string[] args)
         {
+            ReadClubs();
+            ReadMembers();
             Console.WriteLine("Welcome to GC Fitness 24. Hard bodies, sharp minds!");
             bool go = true;
             while (go)
@@ -53,10 +55,13 @@ namespace GC_Fitness_24
                 }
                 if (choice == "2")
                 {
+                    Console.Write("Enter the name of the memebr you want to Search for: ");
                     bool go2 = true;
+                    string name;
                     while (go2)
                     {// find by search
-                       
+                        name = Console.ReadLine();
+                        go2 = true;
                     }
                 }
                 if (choice == "3")
