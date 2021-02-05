@@ -215,11 +215,26 @@ namespace GC_Fitness_24
             //}
             //}
         }
-        public static void FindMember()
+        public static Members FindMember(List<Members> memberList)
         {
+            Console.WriteLine("Please enter the full name of the member");
             string name = Console.ReadLine().Trim().ToLower();
-
+            foreach(Members m in memberList)
+            {
+                if (name == m.Name.ToLower())
+                {
+                    Console.WriteLine("Welcome, back!");
+                    return m;
+                }
+                else
+                {
+                    Console.WriteLine("That guest does not belong to this location.");
+                    //return -1;
+                }
+            }
+            return null;
            //this is a test 
+
         }
 
 
