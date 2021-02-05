@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace GC_Fitness_24
 {
@@ -12,7 +13,7 @@ namespace GC_Fitness_24
             {
                 Console.WriteLine("What would you like to do today?");
                 Console.WriteLine("1) Check in a member.");
-                Console.WriteLine("2) Display member list.");
+                Console.WriteLine("2) Search for a member");
                 Console.WriteLine("3) Print out an invoice.");
                 Console.WriteLine("4) Add member.");
                 Console.WriteLine("5) Delete member.");
@@ -32,8 +33,7 @@ namespace GC_Fitness_24
                     bool go1 = true;
                     while (go1)
                     {
-                        PrintMembers();
-                        Console.WriteLine("Please enter the number of the member you would like to check in.");
+                      
                         string choice1 = Console.ReadLine();
                         if (CheckNum(choice1, 5)) //CHANGE TO LIST.COUNT
                         {
@@ -45,26 +45,22 @@ namespace GC_Fitness_24
                             go1 = true;
                         }
                     }
-
                 }
                 if (choice == "2")
                 {
                     bool go2 = true;
                     while (go2)
-                    {
-                        PrintMembers();
+                    {// find by search
+                       
                     }
-
-
-
                 }
                 if (choice == "3")
                 {
                     bool go3 = true;
                     while (go3)
                     {
-                        PrintMembers();
-                        Console.WriteLine("Please select the member number for the invoice you would like to print.");
+                        //Clubs[0].GenerateBill() a;
+                        Console.WriteLine("Please enter the full name for the invoice you would like to print.");
                         string mem3 = Console.ReadLine();
                         CheckNum(mem3, 10); // CHANGE TO LIST.COUNT 
                         int member3 = int.Parse(mem3);
@@ -92,15 +88,14 @@ namespace GC_Fitness_24
                         string name = Console.ReadLine();
                         Console.WriteLine("Please enter the member number.");
                         string memNumber = Console.ReadLine();
+                        Console.WriteLine("Which location are you at?");
 
                     }
-
-
 
                 }
                 if (choice == "5")
                 {
-
+                    RemoveMember();
                 }
                 else
                 {
@@ -111,7 +106,7 @@ namespace GC_Fitness_24
         }
 
         static bool CheckNum(string choice, int max)
-        {
+        {// validates int is a valid input 
 
             if (String.IsNullOrEmpty(choice))
             {
@@ -135,15 +130,40 @@ namespace GC_Fitness_24
                 }
             }
         }
-
-        public static void PrintMembers()
+        public static void RemoveMember()
         {
-            //for (int i = 0; i < MemberList.Count; i++)
+            string name = Console.ReadLine().Trim().ToLower();
+
+            //for (int i = 0; i < Member.Count; i++)
             //{
-            //Console.WriteLine($"{i}");
-            //Console.WriteLine(TaskList[i]);
+                //Member t = MemberList[i];
+
+                //if (t.OwnerName.ToLower() == name)
+                //{
+                   // MemberList.RemoveAt(i);
+                    //i--;
+                //}
             //}
         }
+        public static void FindMember()
+        {
+            string name = Console.ReadLine().Trim().ToLower();
+
+            //for (int i = 0; i < Member.Count; i++)
+            //{
+               // Member t = MemberList[i];
+
+                //if (t.ListOfMembers.ToLower() == name)
+                //{
+                    //MemberList.ForEach(Member=>Console.Write((i)); 
+                   // i--;
+                //}
+            //}
+        }
+
+
+
+
 
     }
 }
