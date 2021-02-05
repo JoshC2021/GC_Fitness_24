@@ -1,0 +1,7 @@
+Oregon,35645 Somewhere,10
+Livonia,54735 Newburgh,13
+Livonia,46756 Merriman,12
+Detroit,97425  Jefferson,19
+Detroit,53662  Bates,24
+Detroit,97595  Main,25
+New Center,42345 Baltimore,21
