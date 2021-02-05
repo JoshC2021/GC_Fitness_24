@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace GC_Fitness_24
 {
@@ -54,15 +55,16 @@ namespace GC_Fitness_24
                     bool go1 = true;
                     while (go1)
                     {
-                      
+                        Console.WriteLine("Please enter the first and last name of the member to check in.");
                         string choice1 = Console.ReadLine();
-                        if (CheckNum(choice1, 5)) //CHANGE TO LIST.COUNT
-                        {
+                        
+                        if (CheckName(choice1))
+                            
+                        { 
                             go1 = false;
-                            //CheckIn()
                         }
                         else
-                        {
+                        { 
                             go1 = true;
                         }
                     }
@@ -132,7 +134,7 @@ namespace GC_Fitness_24
             if (String.IsNullOrEmpty(choice))
             {
                 Console.WriteLine("Please enter a valid input!");
-                return true;
+                return false;
             }
             else
             {
@@ -181,7 +183,27 @@ namespace GC_Fitness_24
                 //}
             //}
         }
+        static bool CheckName(string name)
+        {// validates name is a valid input - Must be first and last, properly capitalized.
 
+            if (String.IsNullOrEmpty(name))
+            {
+                Console.WriteLine("Please enter a valid input!");
+                return false;
+            }
+            else
+            {
+                if(Regex.Match(name, "^([A-Z][a-z]+([ ]?[a-z]?['-]?[A-Z][a-z]+)*)*$").Success)
+                {
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine("Please enter a valid input!");
+                    return false;
+                }
+            }
+        }
 
 
 
