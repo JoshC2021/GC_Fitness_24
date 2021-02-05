@@ -128,12 +128,8 @@ namespace GC_Fitness_24
                                 if (m.Name.Equals(input))
                                 {
                                     cl.RemoveMember(m);
-                                    Console.WriteLine("Member found and delete.");
-                                }
-                                else
-                                {
-                                    Console.WriteLine("Member not found.");
-                                }
+                                    Console.WriteLine("Member found and deleted.");
+                                }                                
                             }
                         }
                     }
