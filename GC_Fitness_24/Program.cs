@@ -120,7 +120,7 @@ namespace GC_Fitness_24
                             {
                                 if (m.Name.Equals(member3))
                                 {
-                                    establishment;
+                                    //establishment;
                                 }
                             }
 
@@ -162,15 +162,8 @@ namespace GC_Fitness_24
                 // FIND MEMBER IN CLUB THEN DELETE FROM LIST
                 if (choice == "5")
                 {
-                    Console.WriteLine("Please enter the member's name that you would like to delete :");
-                    string input = Console.ReadLine();
-                    for(int i = 0; i < membersList.Count; i++)
-                    {
-                        if (membersList.ElementAt(i).Name.Equals(input))
-                        {
-                            membersList.RemoveAt(i);
-                        }
-                    }
+                    membersList.RemoveAt(FindMember(establishment));
+
                 }
                 // QUIT PROGRAM
                 if (choice == "6")
