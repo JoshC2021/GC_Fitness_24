@@ -1,0 +1,5 @@
+893644,Jessica Rabbit,Detroit,s,0,new
+936420,Donovan Bridges,Oregon,m,57,old
+324230,Cassidy Kramer,Livonia,s,0,new
+424678,Logan Brown,New Center,s,0,old
+660832,Wendi Magee,Detroit,m,78,old
