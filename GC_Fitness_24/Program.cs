@@ -10,6 +10,7 @@ namespace GC_Fitness_24
         static void Main(string[] args)
         {
 
+            // LIST OF SAMPLE CLUBS
             List<Club> Clubs = new List<Club>()
             {
                 new Club("Oregon", "35645 Somewhere", 10),
@@ -21,6 +22,7 @@ namespace GC_Fitness_24
                 new Club("New Center", "42345 Baltimore", 21)
             };
 
+            // LIST OF SAMPLE MEMBERS
             List<Members> membersList = new List<Members>();
             Members a = new SingleClub("893644", "Jessica Rabbit", "Detroit");
             Members b = new MultiClub("936420", "Donovan Bridges", 200);
@@ -30,9 +32,10 @@ namespace GC_Fitness_24
             Members w = new MultiClub("660832", "Wendi Magee", 200);
 
 
-
+            // INTRO
             Console.WriteLine("Welcome to GC Fitness 24. Hard bodies, sharp minds!");
 
+            // HAVE USER SELECT WHICH CLUB THEY WOULD LIKE ACCESS TO
             Console.WriteLine("\nList of establishments: ");
             for (int i = 0; i < Clubs.Count; i++)
             {
@@ -43,9 +46,11 @@ namespace GC_Fitness_24
             Club establishment = Clubs.ElementAt(chooseClub - 1);
             Console.WriteLine($"\nEstablishment set to:   {establishment.Name}, {establishment.Address}");
 
+            //MENU
             bool go = true;
             while (go)
             {
+                // HAVE USER ENTER A NUMBER FOR OPTION
                 Console.WriteLine("\nWhat would you like to do today?");
                 Console.WriteLine("1) Check in a member.");
                 Console.WriteLine("2) Search for a member");
@@ -54,7 +59,9 @@ namespace GC_Fitness_24
                 Console.WriteLine("5) Delete member.");
                 Console.WriteLine("6) Quit");
                 Console.Write("\nPlease press the number of your selection (1-6): ");
+
                 string choice = Console.ReadLine();
+                // CHECK FOR VALID INPUT
                 if (CheckNum(choice, 6))
                 {
                     go = false;
@@ -64,6 +71,7 @@ namespace GC_Fitness_24
                     go = true;
                 }
 
+                // CHECK IN A MEMBER
                 if (choice == "1")
                 {
                     bool go1 = true;
@@ -82,6 +90,8 @@ namespace GC_Fitness_24
                         }
                     }
                 }
+
+                // SEARCH FOR MEMBER AND DISPLAY INFO
                 if (choice == "2")
                 {
                     bool go2 = true;
@@ -90,6 +100,8 @@ namespace GC_Fitness_24
 
                     }
                 }
+
+                // GENERATE BILL FOR USER
                 if (choice == "3")
                 {
                     bool go3 = true;
@@ -112,6 +124,8 @@ namespace GC_Fitness_24
                         }
                     }
                 }
+
+                // CREATE AND ADD A NEW MEMBER TO THE CLUB/LIST
                 if (choice == "4")
                 {
                     Console.WriteLine("Membership Options:\n" +
@@ -136,6 +150,8 @@ namespace GC_Fitness_24
                         establishment.AddMember(new MultiClub(name, id));
                     }
                 }
+
+                // FIND MEMBER IN CLUB THEN DELETE FROM LIST
                 if (choice == "5")
                 {
                     Console.WriteLine("Please enter the member's name that you would like to delete :");
@@ -148,6 +164,8 @@ namespace GC_Fitness_24
                         }
                     }
                 }
+
+                // QUIT PROGRAM
                 if (choice == "6")
                 {
                     Console.WriteLine("Quitting program.");
@@ -156,6 +174,7 @@ namespace GC_Fitness_24
             }
         }
 
+        // VALIDATE THE NUMBER USER INPUTTED
         static bool CheckNum(string choice, int max)
         {// validates int is a valid input 
 
