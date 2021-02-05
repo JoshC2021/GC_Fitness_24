@@ -27,7 +27,7 @@ namespace GC_Fitness_24
             new MultiClub("936420", "Donovan Bridges", 200),
             new SingleClub("324230", "Cassidy Kramer", "Livonia"),
             new SingleClub("424678", "Logan Brown", "New Center"),
-            new MultiClub("876543", "Evan Evanston"),
+            new MultiClub("876543", "Evan Evanston", 321),
             new MultiClub("660832", "Wendi Magee", 200)
         };
 
@@ -78,59 +78,54 @@ namespace GC_Fitness_24
                     bool go1 = true;
                     while (go1)
                     {
-                        Console.WriteLine("Which member would you like to checkout?");
-                        string choice1 = Console.ReadLine();
-                        if (CheckNum(choice1, 5)) //CHANGE TO LIST.COUNT
+                        int member1 = FindMember(establishment); // return -1 if no member found
+                        if (member1 != -1)
                         {
-                            go1 = false;
-                            //CheckIn()
+                            membersList[member1].CheckIn(establishment);
+                            Console.WriteLine("Checked in");
                         }
-                        else
-                        {
-                            go1 = true;
-                        }
+                        break;
+                        //if (CheckNum(choice1, 5)) //CHANGE TO LIST.COUNT
+                        //{
+                        //    go1 = false;
+                        //    //CheckIn()
+                        //}
+                        //else
+                        //{
+                        //    go1 = true;
+                        //}
                     }
                 }
 
                 // SEARCH FOR MEMBER AND DISPLAY INFO
                 if (choice == "2")
                 {
-                    bool go2 = true;
-                    while (go2)
-                    {// find by search
-
+                    int member2 = FindMember(establishment); // return -1 if no member found
+                    if(member2 ==-1)
+                    {
+                        Console.WriteLine("No member found with that name");
+                    }
+                    else
+                    {
+                        Console.WriteLine(membersList[member2]);
                     }
                 }
 
                 // GENERATE BILL FOR USER
                 if (choice == "3")
                 {
-                    bool go3 = true;
-                    while (go3)
+                    int member3 = FindMember(establishment);
+                    string bill = $"{membersList[member3].Name} Amount Dues: $";
+                    if (membersList[member3] is MultiClub) // membership have $40 for monthly fee
                     {
-                        //Clubs[0].GenerateBill() a;
-                        Console.WriteLine("Please enter the full name for the invoice you would like to print.");
-                        string mem3 = Console.ReadLine();
-                        CheckNum(mem3, membersList.Count -1); 
-                        int member3 = int.Parse(mem3);
-                        Console.WriteLine($"You have selected member {member3}. Is this correct? Y/N");
-                        if (Console.ReadLine() == "y" || (Console.ReadLine() == "Y"))
-                        {
-                            foreach (Members m in establishment.MembersList)
-                            {
-                                if (m.Name.Equals(member3))
-                                {
-                                    //establishment;
-                                }
-                            }
-
-                        }
-                        else
-                        {
-                            Console.WriteLine("Sorry, I didn't get that.");
-                            go = false;
-                        }
+                        MultiClub temp = (MultiClub)membersList[member3];
+                        bill += $"40\nMembership Points: {temp.Points}"; // need to cast
                     }
+                    else
+                    {
+                        bill += $"{establishment.MonthlyDue}";
+                    }
+                    Console.WriteLine(bill);
                 }
 
                 // CREATE AND ADD A NEW MEMBER TO THE CLUB/LIST
