@@ -7,31 +7,32 @@ namespace GC_Fitness_24
 {
     class Program
     {
+        // LIST OF SAMPLE CLUBS
+        public static List<Club> Clubs = new List<Club>()
+        {
+            new Club("Oregon", "35645 Somewhere", 10),
+            new Club("Livonia","54735 Newburgh", 10),
+            new Club("Livonia", "46756 Merriman", 12),
+            new Club("Detroit", "97425 Jefferson", 19),
+            new Club("Detroit","53662 Main", 25),
+            new Club("Detroit", "97595 Main", 25),
+            new Club("New Center", "42345 Baltimore", 21)
+        };
+
+
+        // LIST OF SAMPLE MEMBERS
+        public static List<Members> membersList = new List<Members>()
+        {
+            new SingleClub("893644", "Jessica Rabbit", "Detroit"),
+            new MultiClub("936420", "Donovan Bridges", 200),
+            new SingleClub("324230", "Cassidy Kramer", "Livonia"),
+            new SingleClub("424678", "Logan Brown", "New Center"),
+            new MultiClub("876543", "Evan Evanston"),
+            new MultiClub("660832", "Wendi Magee", 200)
+        };
+
         static void Main(string[] args)
         {
-
-            // LIST OF SAMPLE CLUBS
-            List<Club> Clubs = new List<Club>()
-            {
-                new Club("Oregon", "35645 Somewhere", 10),
-                new Club("Livonia","54735 Newburgh", 10),
-                new Club("Livonia", "46756 Merriman", 12),
-                new Club("Detroit", "97425 Jefferson", 19),
-                new Club("Detroit","53662 Main", 25),
-                new Club("Detroit", "97595 Main", 25),
-                new Club("New Center", "42345 Baltimore", 21)
-            };
-
-            // LIST OF SAMPLE MEMBERS
-            List<Members> membersList = new List<Members>();
-            Members a = new SingleClub("893644", "Jessica Rabbit", "Detroit");
-            Members b = new MultiClub("936420", "Donovan Bridges", 200);
-            Members c = new SingleClub("324230", "Cassidy Kramer", "Livonia");
-            Members d = new SingleClub("424678", "Logan Brown", "New Center");
-            Members e = new MultiClub("876543", "Evan Evanston");
-            Members w = new MultiClub("660832", "Wendi Magee", 200);
-
-
             // INTRO
             Console.WriteLine("Welcome to GC Fitness 24. Hard bodies, sharp minds!");
 
@@ -64,11 +65,11 @@ namespace GC_Fitness_24
                 // CHECK FOR VALID INPUT
                 if (CheckNum(choice, 6))
                 {
-                    go = false;
+                    go = true;
                 }
                 else
                 {
-                    go = true;
+                    Console.WriteLine("Unavailable option. Try again.");
                 }
 
                 // CHECK IN A MEMBER
@@ -146,7 +147,7 @@ namespace GC_Fitness_24
                         string name = Console.ReadLine();
                         Console.Write("\nPlease enter the member's id: ");
                         string id = Console.ReadLine();
-                        establishment.AddMember(new SingleClub(name, id, establishment.Name));
+                        membersList.Add(new SingleClub(id, name, establishment.Name));
                     }
                     if (num == 2)
                     {
@@ -154,7 +155,7 @@ namespace GC_Fitness_24
                         string name = Console.ReadLine();
                         Console.Write("\nPlease enter the member's id:  ");
                         string id = Console.ReadLine();
-                        establishment.AddMember(new MultiClub(name, id));
+                        membersList.Add(new MultiClub(id, name));
                     }
                 }
 
@@ -163,23 +164,25 @@ namespace GC_Fitness_24
                 {
                     Console.WriteLine("Please enter the member's name that you would like to delete :");
                     string input = Console.ReadLine();
-                    foreach (Members m in establishment.MembersList)
+                    for(int i = 0; i < membersList.Count; i++)
                     {
-                        if (m.Name.Equals(input))
+                        if (membersList.ElementAt(i).Name.Equals(input))
                         {
-                            establishment.RemoveMember(m);
+                            membersList.RemoveAt(i);
                         }
                     }
                 }
-
                 // QUIT PROGRAM
                 if (choice == "6")
                 {
-                    Console.WriteLine("Quitting program.");
+                    Console.WriteLine("Quitting program...");
                     go = false;
                 }
             }
         }
+
+
+        ///***********************EXTERNAL METHODS*****************************///
 
         // VALIDATE THE NUMBER USER INPUTTED
         static bool CheckNum(string choice, int max)
@@ -232,6 +235,7 @@ namespace GC_Fitness_24
         static bool CheckName(string name)
         {// validates name is a valid input - Must be first and last, properly capitalized.
 
+
             if (String.IsNullOrEmpty(name))
             {
                 Console.WriteLine("Please enter a valid input!");
@@ -251,5 +255,8 @@ namespace GC_Fitness_24
             }
 
         }
+
+        ///***********************EXTERNAL METHODS*****************************///
+
     }
 }
