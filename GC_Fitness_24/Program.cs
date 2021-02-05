@@ -219,16 +219,7 @@ namespace GC_Fitness_24
         {
             string name = Console.ReadLine().Trim().ToLower();
 
-            //for (int i = 0; i < Member.Count; i++)
-            //{
-            // Member t = MemberList[i];
-
-            //if (t.ListOfMembers.ToLower() == name)
-            //{
-            //MemberList.ForEach(Member=>Console.Write((i)); 
-            // i--;
-            //}
-            //}
+           //this is a test 
         }
 
 
