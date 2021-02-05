@@ -7,6 +7,16 @@ namespace GC_Fitness_24
     {
         static void Main(string[] args)
         {
+            List<Club> Clubs = new List<Club>()
+            {
+                new Club("Oregon", "35645 Somewhere", 10),
+                new Club("Livonia,","54735 Newburgh", 10),
+                new Club("Livonia", "46756 Merriman", 12),
+                new Club("Detroit", "97425 Jefferson", 19),
+                new Club("Detroit","53662 Main", 25),
+                new Club("Detroit", "97595 Main", 25),
+                new Club("New Center", "42345 Baltimore", 21)
+            };
             Console.WriteLine("Welcome to GC Fitness 24. Hard bodies, sharp minds!");
             bool go = true;
             while (go)
