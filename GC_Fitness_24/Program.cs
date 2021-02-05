@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace GC_Fitness_24
 {
@@ -6,6 +7,13 @@ namespace GC_Fitness_24
     {
         static void Main(string[] args)
         {
+            List<Members> membersList = new List<Members>();
+            Members a = new SingleClub("893644", "Jessica Rabbit", "Detroit");
+            Members b = new MultiClub("936420", "Donovan Bridges", 100); 
+            Members c = new SingleClub("324230", "Cassidy Kramer", "Livonia");
+            Members d = new SingleClub("424678", "Logan Brown", "New Center");
+            Members w = new MultiClub("660832", "Wendi Magee", 100);
+
             Console.WriteLine("Welcome to GC Fitness 24. Hard bodies, sharp minds!");
             bool go = true;
             while (go)
