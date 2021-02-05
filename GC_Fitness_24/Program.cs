@@ -21,7 +21,7 @@ namespace GC_Fitness_24
 
             List<Members> membersList = new List<Members>();
             Members a = new SingleClub("893644", "Jessica Rabbit", "Detroit");
-            Members b = new MultiClub("936420", "Donovan Bridges", 200); 
+            Members b = new MultiClub("936420", "Donovan Bridges", 200);  
             Members c = new SingleClub("324230", "Cassidy Kramer", "Livonia");
             Members d = new SingleClub("424678", "Logan Brown", "New Center");
             Members e = new MultiClub("876543", "Evan Evanston");
