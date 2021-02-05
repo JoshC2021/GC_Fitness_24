@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace GC_Fitness_24
 {
@@ -11,7 +13,7 @@ namespace GC_Fitness_24
             List<Club> Clubs = new List<Club>()
             {
                 new Club("Oregon", "35645 Somewhere", 10),
-                new Club("Livonia,","54735 Newburgh", 10),
+                new Club("Livonia","54735 Newburgh", 10),
                 new Club("Livonia", "46756 Merriman", 12),
                 new Club("Detroit", "97425 Jefferson", 19),
                 new Club("Detroit","53662 Main", 25),
@@ -21,25 +23,37 @@ namespace GC_Fitness_24
 
             List<Members> membersList = new List<Members>();
             Members a = new SingleClub("893644", "Jessica Rabbit", "Detroit");
-            Members b = new MultiClub("936420", "Donovan Bridges", 200);  
+            Members b = new MultiClub("936420", "Donovan Bridges", 200);
             Members c = new SingleClub("324230", "Cassidy Kramer", "Livonia");
             Members d = new SingleClub("424678", "Logan Brown", "New Center");
             Members e = new MultiClub("876543", "Evan Evanston");
             Members w = new MultiClub("660832", "Wendi Magee", 200);
 
 
+
             Console.WriteLine("Welcome to GC Fitness 24. Hard bodies, sharp minds!");
+
+            Console.WriteLine("\nList of establishments: ");
+            for (int i = 0; i < Clubs.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {Clubs.ElementAt(i).Name}, {Clubs.ElementAt(i).Address}");
+            }
+            Console.Write("\nWhich club are you in (1-7):   ");
+            int chooseClub = int.Parse(Console.ReadLine());
+            Club establishment = Clubs.ElementAt(chooseClub - 1);
+            Console.WriteLine($"\nEstablishment set to:   {establishment.Name}, {establishment.Address}");
+
             bool go = true;
             while (go)
             {
-                Console.WriteLine("What would you like to do today?");
+                Console.WriteLine("\nWhat would you like to do today?");
                 Console.WriteLine("1) Check in a member.");
                 Console.WriteLine("2) Search for a member");
                 Console.WriteLine("3) Print out an invoice.");
                 Console.WriteLine("4) Add member.");
                 Console.WriteLine("5) Delete member.");
                 Console.WriteLine("6) Quit");
-                Console.WriteLine("Please press the number of your selection.");
+                Console.Write("\nPlease press the number of your selection (1-6): ");
                 string choice = Console.ReadLine();
                 if (CheckNum(choice, 6))
                 {
@@ -55,7 +69,7 @@ namespace GC_Fitness_24
                     bool go1 = true;
                     while (go1)
                     {
-                      
+                        Console.WriteLine("Which member would you like to checkout?");
                         string choice1 = Console.ReadLine();
                         if (CheckNum(choice1, 5)) //CHANGE TO LIST.COUNT
                         {
@@ -73,7 +87,7 @@ namespace GC_Fitness_24
                     bool go2 = true;
                     while (go2)
                     {// find by search
-                       
+
                     }
                 }
                 if (choice == "3")
@@ -97,60 +111,44 @@ namespace GC_Fitness_24
                             go = false;
                         }
                     }
-
                 }
                 if (choice == "4")
                 {
-                    Console.Write("Please enter the club name: ");
-                    string input = Console.ReadLine();
-                    foreach (Club cl in Clubs)
+                    Console.WriteLine("Membership Options:\n" +
+                        "1. Single-Club Member\n" +
+                        "2. Multi-Club Member");
+                    Console.Write("\nWhat kind of member is this (1-2): ");
+                    int num = int.Parse(Console.ReadLine());
+                    if (num == 1)
                     {
-                        if (cl.Name.Equals(input))
-                        {
-                            Console.WriteLine("Is this member:\n" +
-                                "1. Single-Club Member" +
-                                "2. Multi-Club Member");
-                            int num = int.Parse(Console.ReadLine());
-                            if (num == 0)
-                            {
-                                Console.WriteLine("Please enter the member's name that you would like to add: ");
-                                string name = Console.ReadLine();
-                                Console.WriteLine("Please enter the member's id: ");
-                                string id = Console.ReadLine();
-                                cl.AddMember(new SingleClub(name, id, cl.Name));
-                            }
-                            if (num == 1)
-                            {
-                                Console.WriteLine("Please enter the member's name that you would like to add: ");
-                                string name = Console.ReadLine();
-                                Console.WriteLine("Please enter the member's id: ");
-                                string id = Console.ReadLine();
-                                cl.AddMember(new MultiClub(name, id));
-                            }                        
-                        }
+                        Console.Write("\nPlease enter the member's name that you would like to add: ");
+                        string name = Console.ReadLine();
+                        Console.Write("\nPlease enter the member's id: ");
+                        string id = Console.ReadLine();
+                        establishment.AddMember(new SingleClub(name, id, establishment.Name));
+                    }
+                    if (num == 2)
+                    {
+                        Console.Write("\nPlease enter the member's name that you would like to add:  ");
+                        string name = Console.ReadLine();
+                        Console.Write("\nPlease enter the member's id:  ");
+                        string id = Console.ReadLine();
+                        establishment.AddMember(new MultiClub(name, id));
                     }
                 }
                 if (choice == "5")
                 {
-                    Console.Write("Please enter the club name: ");
+                    Console.WriteLine("Please enter the member's name that you would like to delete :");
                     string input = Console.ReadLine();
-                    foreach (Club cl in Clubs)
+                    foreach (Members m in establishment.MembersList)
                     {
-                        if (cl.Name.Equals(input))
+                        if (m.Name.Equals(input))
                         {
-                            Console.WriteLine("Please enter the member's name that you would like to delete :");
-                            input = Console.ReadLine();
-                            foreach (Members m in cl.MembersList)
-                            {
-                                if (m.Name.Equals(input))
-                                {
-                                    cl.RemoveMember(m);
-                                }                                
-                            }
+                            establishment.RemoveMember(m);
                         }
                     }
                 }
-                if (choice == "6")                
+                if (choice == "6")
                 {
                     Console.WriteLine("Quitting program.");
                     go = false;
@@ -189,13 +187,13 @@ namespace GC_Fitness_24
 
             //for (int i = 0; i < Member.Count; i++)
             //{
-                //Member t = MemberList[i];
+            //Member t = MemberList[i];
 
-                //if (t.OwnerName.ToLower() == name)
-                //{
-                   // MemberList.RemoveAt(i);
-                    //i--;
-                //}
+            //if (t.OwnerName.ToLower() == name)
+            //{
+            // MemberList.RemoveAt(i);
+            //i--;
+            //}
             //}
         }
         public static void FindMember()
@@ -204,13 +202,13 @@ namespace GC_Fitness_24
 
             //for (int i = 0; i < Member.Count; i++)
             //{
-               // Member t = MemberList[i];
+            // Member t = MemberList[i];
 
-                //if (t.ListOfMembers.ToLower() == name)
-                //{
-                    //MemberList.ForEach(Member=>Console.Write((i)); 
-                   // i--;
-                //}
+            //if (t.ListOfMembers.ToLower() == name)
+            //{
+            //MemberList.ForEach(Member=>Console.Write((i)); 
+            // i--;
+            //}
             //}
         }
 
