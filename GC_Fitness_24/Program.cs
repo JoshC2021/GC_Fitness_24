@@ -21,7 +21,7 @@ namespace GC_Fitness_24
 
             List<Members> membersList = new List<Members>();
             Members a = new SingleClub("893644", "Jessica Rabbit", "Detroit");
-            Members b = new MultiClub("936420", "Donovan Bridges", 200); 
+            Members b = new MultiClub("936420", "Donovan Bridges", 200);
             Members c = new SingleClub("324230", "Cassidy Kramer", "Livonia");
             Members d = new SingleClub("424678", "Logan Brown", "New Center");
             Members e = new MultiClub("876543", "Evan Evanston");
@@ -54,7 +54,7 @@ namespace GC_Fitness_24
                     bool go1 = true;
                     while (go1)
                     {
-                      
+
                         string choice1 = Console.ReadLine();
                         if (CheckNum(choice1, 5)) //CHANGE TO LIST.COUNT
                         {
@@ -71,136 +71,136 @@ namespace GC_Fitness_24
                 {
                     bool go2 = true;
                     while (go2)
-                    {// find by search
-                       
-                    }
-                }
-                if (choice == "3")
-                {
-                    bool go3 = true;
-                    while (go3)
                     {
-                        //Clubs[0].GenerateBill() a;
-                        Console.WriteLine("Please enter the full name for the invoice you would like to print.");
-                        string mem3 = Console.ReadLine();
-                        CheckNum(mem3, 10); // CHANGE TO LIST.COUNT 
-                        int member3 = int.Parse(mem3);
-                        Console.WriteLine($"You have selected member {member3}. Is this correct? Y/N");
-                        if (Console.ReadLine() == "y" || (Console.ReadLine() == "Y"))
-                        {
-                            Console.WriteLine("WHATEVER NAME AND POINTS");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Sorry, I didn't get that.");
-                            go = false;
-                        }
+                        FindMember(club);
                     }
-
-                }
-                if (choice == "4")
-                {
-                    bool go4 = true;
-                    while (go4)
+                    if (choice == "3")
                     {
-                        Console.WriteLine("Will this member be a single or multi club member? Enter 1 for single and 2 for multi.");
-                        //if (CheckNum(Console.ReadLine(), 2) = false) ;
-                        Console.WriteLine("Please enter the new member's first and last name.");
-                        string name = Console.ReadLine();
-                        Console.WriteLine("Please enter the member number.");
-                        string memNumber = Console.ReadLine();
-                        Console.WriteLine("Which location are you at?");
-                    }
-
-                }
-                if (choice == "5")
-                {
-                    Console.Write("Please enter the club name: ");
-                    string input = Console.ReadLine();
-                    foreach (Club cl in Clubs)
-                    {
-                        if (cl.Name.Equals(input))
+                        bool go3 = true;
+                        while (go3)
                         {
-                            Console.WriteLine("Please enter the member's name that you would like to delete :");
-                            input = Console.ReadLine();
-                            foreach (Members m in cl.MembersList)
+                            //Clubs[0].GenerateBill() a;
+                            Console.WriteLine("Please enter the full name for the invoice you would like to print.");
+                            string mem3 = Console.ReadLine();
+                            CheckNum(mem3, 10); // CHANGE TO LIST.COUNT 
+                            int member3 = int.Parse(mem3);
+                            Console.WriteLine($"You have selected member {member3}. Is this correct? Y/N");
+                            if (Console.ReadLine() == "y" || (Console.ReadLine() == "Y"))
                             {
-                                if (m.Name.Equals(input))
+                                Console.WriteLine("WHATEVER NAME AND POINTS");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Sorry, I didn't get that.");
+                                go = false;
+                            }
+                        }
+
+                    }
+                    if (choice == "4")
+                    {
+                        bool go4 = true;
+                        while (go4)
+                        {
+                            Console.WriteLine("Will this member be a single or multi club member? Enter 1 for single and 2 for multi.");
+                            //if (CheckNum(Console.ReadLine(), 2) = false) ;
+                            Console.WriteLine("Please enter the new member's first and last name.");
+                            string name = Console.ReadLine();
+                            Console.WriteLine("Please enter the member number.");
+                            string memNumber = Console.ReadLine();
+                            Console.WriteLine("Which location are you at?");
+                        }
+
+                    }
+                    if (choice == "5")
+                    {
+                        Console.Write("Please enter the club name: ");
+                        string input = Console.ReadLine();
+                        foreach (Club cl in Clubs)
+                        {
+                            if (cl.Name.Equals(input))
+                            {
+                                Console.WriteLine("Please enter the member's name that you would like to delete :");
+                                input = Console.ReadLine();
+                                foreach (Members m in cl.MembersList)
                                 {
-                                    cl.RemoveMember(m);
-                                    Console.WriteLine("Member found and deleted.");
-                                }                                
+                                    if (m.Name.Equals(input))
+                                    {
+                                        cl.RemoveMember(m);
+                                        Console.WriteLine("Member found and deleted.");
+                                    }
+                                }
                             }
                         }
                     }
-                }
-                else
-                {
+                    else
+                    {
+
+                    }
 
                 }
-
             }
-        }
 
-        static bool CheckNum(string choice, int max)
-        {// validates int is a valid input 
+            static bool CheckNum(string choice, int max)
+            {// validates int is a valid input 
 
-            if (String.IsNullOrEmpty(choice))
-            {
-                Console.WriteLine("Please enter a valid input!");
-                return true;
-            }
-            else
-            {
-                int b;
-                bool valid = Int32.TryParse(choice, out b);
-                if (valid && (int.Parse(choice) > 0) && (int.Parse(choice) <= max))
-                {
-
-                    return true;
-
-                }
-                else
+                if (String.IsNullOrEmpty(choice))
                 {
                     Console.WriteLine("Please enter a valid input!");
-                    return false;
+                    return true;
+                }
+                else
+                {
+                    int b;
+                    bool valid = Int32.TryParse(choice, out b);
+                    if (valid && (int.Parse(choice) > 0) && (int.Parse(choice) <= max))
+                    {
+
+                        return true;
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please enter a valid input!");
+                        return false;
+                    }
+                }
+            }
+            public static Members FindMember(Club club)
+            {
+                Console.Write("Please enter the club name: ");
+                string input = Console.ReadLine();
+                //search club list for input
+                foreach (Club cl in Clubs)
+                {
+                    if (cl.Name.Equals(input))
+                    {
+                        Console.WriteLine("Please enter the member's name that you would like to search for: ");
+                        input = Console.ReadLine();
+                        foreach (Members m in cl.MembersList)
+                        {
+                            if (m.Name.Equals(input))
+                            {
+                                return m;
+                            }
+                            else
+                            {
+                                Console.WriteLine("That person is not a member at this club");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("That is not a valid club location. Try again.");
+                    }
                 }
             }
         }
-        public static void RemoveMember()
-        {
-            string name = Console.ReadLine().Trim().ToLower();
 
-            //for (int i = 0; i < Member.Count; i++)
-            //{
-                //Member t = MemberList[i];
 
-                //if (t.OwnerName.ToLower() == name)
-                //{
-                   // MemberList.RemoveAt(i);
-                    //i--;
-                //}
-            //}
+
+
+
         }
-        public static void FindMember()
-        {
-            string name = Console.ReadLine().Trim().ToLower();
-
-            //for (int i = 0; i < Member.Count; i++)
-            //{
-               // Member t = MemberList[i];
-
-                //if (t.ListOfMembers.ToLower() == name)
-                //{
-                    //MemberList.ForEach(Member=>Console.Write((i)); 
-                   // i--;
-                //}
-            //}
-        }
-
-
-
-
-
     }
 }
