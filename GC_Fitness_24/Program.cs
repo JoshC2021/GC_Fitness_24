@@ -48,131 +48,142 @@ namespace GC_Fitness_24
             Console.WriteLine($"\nEstablishment set to:   {establishment.Name}, {establishment.Address}");
 
             //MENU
-            bool go = true;
-            while (go)
+            bool isGoing = true;
+            while (isGoing)
             {
                 // HAVE USER ENTER A NUMBER FOR OPTION
-                Console.WriteLine("\nWhat would you like to do today?");
-                Console.WriteLine("1) Check in a member.");
-                Console.WriteLine("2) Search for a member");
-                Console.WriteLine("3) Print out an invoice.");
-                Console.WriteLine("4) Add member.");
-                Console.WriteLine("5) Delete member.");
-                Console.WriteLine("6) Quit");
-                Console.Write("\nPlease press the number of your selection (1-6): ");
-
+                PrintPrompt();
                 string choice = Console.ReadLine();
+                string input;
                 // CHECK FOR VALID INPUT
-                if (CheckNum(choice, 6))
-                {
-                    go = true;
-                }
-                else
-                {
-                    Console.WriteLine("Unavailable option. Try again.");
-                }
-
-                // CHECK IN A MEMBER
                 if (choice == "1")
-                {
-                    bool go1 = true;
-                    while (go1)
+                {    
+                    do
                     {
+                        Console.WriteLine("Checking in: ");
                         int member1 = FindMember(establishment); // return -1 if no member found
                         if (member1 != -1)
                         {
                             membersList[member1].CheckIn(establishment);
                             Console.WriteLine("Checked in");
                         }
-                        break;
-                        //if (CheckNum(choice1, 5)) //CHANGE TO LIST.COUNT
-                        //{
-                        //    go1 = false;
-                        //    //CheckIn()
-                        //}
-                        //else
-                        //{
-                        //    go1 = true;
-                        //}
-                    }
+                        Console.Write("Do you want to continue checking in members(Y/N)?");
+                        input = Console.ReadLine();
+                    } while (ConfirmSelection(input));
                 }
-
                 // SEARCH FOR MEMBER AND DISPLAY INFO
-                if (choice == "2")
+                else if (choice == "2")
                 {
-                    int member2 = FindMember(establishment); // return -1 if no member found
-                    if(member2 ==-1)
+                    do
                     {
-                        Console.WriteLine("No member found with that name");
-                    }
-                    else
-                    {
-                        Console.WriteLine(membersList[member2]);
-                    }
+                        Console.WriteLine("Searching for member: ");
+                        int member2 = FindMember(establishment); // return -1 if no member found
+                        if (member2 == -1)
+                        {
+                            Console.WriteLine("No member found with that name");
+                        }
+                        else
+                        {
+                            Console.WriteLine(membersList[member2]);
+                        }
+                        Console.Write("Do you want to continue searching for members(Y/N)?");
+                        input = Console.ReadLine();
+                    } while (ConfirmSelection(input));
                 }
 
                 // GENERATE BILL FOR USER
-                if (choice == "3")
+                else if (choice == "3")
                 {
-                    int member3 = FindMember(establishment);
-                    string bill = $"{membersList[member3].Name} Amount Dues: $";
-                    if (membersList[member3] is MultiClub) // membership have $40 for monthly fee
+                    do
                     {
-                        MultiClub temp = (MultiClub)membersList[member3];
+                        Console.WriteLine("Generating invoice: ");
+                        int member3 = FindMember(establishment);
+                        if (member3 == -1)
+                        {
+                            Console.WriteLine("No member found with that name");
+                        }
+                        else
+                        {
+                            string bill = $"{membersList[member3].Name} Amount Dues: $";
+                            if (membersList[member3] is MultiClub) // membership have $40 for monthly fee
+                            {
+                                MultiClub temp = (MultiClub)membersList[member3];
 
-                        bill += $"40\nMembership Points: {temp.Points}"; // need to cast
-                    }
-                    else
-                    {
-                        bill += $"{establishment.MonthlyDue}";
-                    }
-                    Console.WriteLine(bill);
+                                bill += $"40\nMembership Points: {temp.Points}"; // need to cast
+                            }
+                            else
+                            {
+                                bill += $"{establishment.MonthlyDue}";
+                            }
+                            Console.WriteLine(bill);
+                        }
+                        Console.Write("Do you want to continue Printing out invoices(Y/N)?");
+                        input = Console.ReadLine();
+                    } while (ConfirmSelection(input));
                 }
 
                 // CREATE AND ADD A NEW MEMBER TO THE CLUB/LIST
-                if (choice == "4")
+                else if (choice == "4")
                 {
-                    Console.WriteLine("Membership Options:\n" +
-                        "1. Single-Club Member\n" +
-                        "2. Multi-Club Member");
-                    Console.Write("\nWhat kind of member is this (1-2): ");
-                    int num = int.Parse(Console.ReadLine());
-                    if (num == 1)
+                    do
                     {
-                        Console.Write("\nPlease enter the member's name that you would like to add: ");
-                        string name = Console.ReadLine();
-                        Console.Write("\nPlease enter the member's id: ");
-                        string id = Console.ReadLine();
-                        membersList.Add(new SingleClub(id, name, establishment.Name));
-                    }
-                    if (num == 2)
-                    {
-                        Console.Write("\nPlease enter the member's name that you would like to add:  ");
-                        string name = Console.ReadLine();
-                        Console.Write("\nPlease enter the member's id:  ");
-                        string id = Console.ReadLine();
-                        membersList.Add(new MultiClub(id, name));
-                    }
+                        Console.WriteLine("Membership Options:\n" +
+                            "1. Single-Club Member\n" +
+                            "2. Multi-Club Member");
+                        Console.Write("\nWhat kind of member is this (1-2): ");
+                        int num = int.Parse(Console.ReadLine());
+                        if (num == 1)
+                        {
+                            Console.Write("\nPlease enter the member's name that you would like to add: ");
+                            string name = Console.ReadLine();
+                            Console.Write("\nPlease enter the member's id: ");
+                            string id = Console.ReadLine();
+                            membersList.Add(new SingleClub(id, name, establishment.Name));
+                            Console.WriteLine("New Single-Club Member added");
+                        }
+                        if (num == 2)
+                        {
+                            Console.Write("\nPlease enter the member's name that you would like to add:  ");
+                            string name = Console.ReadLine();
+                            Console.Write("\nPlease enter the member's id:  ");
+                            string id = Console.ReadLine();
+                            membersList.Add(new MultiClub(id, name));
+                            Console.WriteLine("New Multi-Club Member added");
+                        }
+                        Console.Write("Do you want to continue Adding members(Y/N)?");
+                        input = Console.ReadLine();
+                    } while (ConfirmSelection(input));
                 }
 
                 // FIND MEMBER IN CLUB THEN DELETE FROM LIST
-                if (choice == "5")
+                else if (choice == "5")
                 {
-                    Console.WriteLine("Please enter the member's name that you would like to delete :");
-                    string input = Console.ReadLine();
-                    for(int i = 0; i < membersList.Count; i++)
+                    do
                     {
-                        if (membersList.ElementAt(i).Name.Equals(input))
+                        Console.WriteLine("Removing Member: ");
+                        int removeIdnex = FindMember(establishment);
+                        if(removeIdnex == -1)
                         {
-                            membersList.RemoveAt(i);
+                            Console.WriteLine("No member found");
                         }
-                    }
+                        else
+                        {
+                            membersList.RemoveAt(removeIdnex);
+                            Console.WriteLine("Member Removed");
+                        }
+                        Console.Write("Do you want to continue removing members(Y/N)?");
+                        input = Console.ReadLine();
+                    } while (ConfirmSelection(input));
                 }
                 // QUIT PROGRAM
-                if (choice == "6")
+                else if (choice == "6")
                 {
                     Console.WriteLine("Quitting program...");
-                    go = false;
+                    isGoing = false;
+                }
+                else // Entry not in menu
+                {
+                    Console.WriteLine("Unavailable option. Try again.");
                 }
             }
         }
@@ -255,7 +266,37 @@ namespace GC_Fitness_24
             }
 
         }
+        
+        // directs user to enter a number
+        public static void PrintPrompt()
+        {
+            Console.WriteLine("\nWhat would you like to do today?");
+            Console.WriteLine("1) Check in a member.");
+            Console.WriteLine("2) Search for a member");
+            Console.WriteLine("3) Print out an invoice.");
+            Console.WriteLine("4) Add member.");
+            Console.WriteLine("5) Delete member.");
+            Console.WriteLine("6) Quit");
+            Console.Write("\nPlease press the number of your selection (1-6): ");
+        }
 
+        public static bool ConfirmSelection(string s)
+        {
+            if (s.ToUpper().Trim() == "Y")
+            {
+                return true;
+            }
+            else if (s.ToUpper().Trim() == "N")
+            {
+                return false;
+            }
+            else
+            {
+                Console.Write("\nInvalid response, Please Enter Y or N: ");
+                ConfirmSelection(Console.ReadLine());
+            }
+            return true;
+        }
         ///***********************EXTERNAL METHODS*****************************///
 
     }
