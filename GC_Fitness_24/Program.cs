@@ -110,13 +110,33 @@ namespace GC_Fitness_24
                         Console.WriteLine("Please enter the member number.");
                         string memNumber = Console.ReadLine();
                         Console.WriteLine("Which location are you at?");
-
                     }
 
                 }
                 if (choice == "5")
                 {
-                    RemoveMember();
+                    Console.Write("Please enter the club name: ");
+                    string input = Console.ReadLine();
+                    foreach (Club cl in Clubs)
+                    {
+                        if (cl.Name.Equals(input))
+                        {
+                            Console.WriteLine("Please enter the member's name that you would like to delete :");
+                            input = Console.ReadLine();
+                            foreach (Members m in cl.MembersList)
+                            {
+                                if (m.Name.Equals(input))
+                                {
+                                    cl.RemoveMember(m);
+                                    Console.WriteLine("Member found and delete.");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Member not found.");
+                                }
+                            }
+                        }
+                    }
                 }
                 else
                 {
