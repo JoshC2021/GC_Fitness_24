@@ -119,7 +119,6 @@ namespace GC_Fitness_24
                     if (membersList[member3] is MultiClub) // membership have $40 for monthly fee
                     {
                         MultiClub temp = (MultiClub)membersList[member3];
-
                         bill += $"40\nMembership Points: {temp.Points}"; // need to cast
                     }
                     else
@@ -158,15 +157,8 @@ namespace GC_Fitness_24
                 // FIND MEMBER IN CLUB THEN DELETE FROM LIST
                 if (choice == "5")
                 {
-                    Console.WriteLine("Please enter the member's name that you would like to delete :");
-                    string input = Console.ReadLine();
-                    for(int i = 0; i < membersList.Count; i++)
-                    {
-                        if (membersList.ElementAt(i).Name.Equals(input))
-                        {
-                            membersList.RemoveAt(i);
-                        }
-                    }
+                    membersList.RemoveAt(FindMember(establishment));
+
                 }
                 // QUIT PROGRAM
                 if (choice == "6")
