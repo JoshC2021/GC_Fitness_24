@@ -211,26 +211,30 @@ namespace GC_Fitness_24
             }
         }
 
-        public static Members FindMember(List<Members> memberList)
+        public static int FindMember(Club chosenClub)
         {
             Console.WriteLine("Please enter the full name of the member");
             string name = Console.ReadLine().Trim().ToLower();
-            foreach (Members m in memberList)
+            int memberIndex = -1;
+            for (int i = 0; i < membersList.Count; i++)
             {
-                if (name == m.Name.ToLower())
+                bool isInList = (name == membersList[i].Name.ToLower());
+                if (membersList[i] is SingleClub) // check to see if belongs to spefic club
                 {
-                    Console.WriteLine("Welcome, back!");
-                    return m;
+                    if (((SingleClub)membersList[i]).HomeClub == chosenClub.Name && isInList)
+                    {
+                        memberIndex = i;
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("That guest does not belong to this location.");
-                    //return -1;
+                    if(isInList)
+                    {
+                        memberIndex = i;
+                    }
                 }
             }
-            return null;
-            //this is a test 
-
+            return memberIndex;
         }
         static bool CheckName(string name)
         {// validates name is a valid input - Must be first and last, properly capitalized.
