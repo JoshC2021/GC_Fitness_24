@@ -36,6 +36,13 @@ namespace GC_Fitness_24
                 
             }
         }
-
-}
+        public override string ToString()
+        {
+            string output = "";
+            output += $"Name: {this.Name}\n";
+            output += $"Id: {this.Id}\n";
+            output += $"Home Club: {this.HomeClub} \n";
+            return output;
+        }
+    }
 }
