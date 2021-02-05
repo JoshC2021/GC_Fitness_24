@@ -38,9 +38,10 @@ namespace GC_Fitness_24
                 Console.WriteLine("3) Print out an invoice.");
                 Console.WriteLine("4) Add member.");
                 Console.WriteLine("5) Delete member.");
+                Console.WriteLine("6) Quit");
                 Console.WriteLine("Please press the number of your selection.");
                 string choice = Console.ReadLine();
-                if (CheckNum(choice, 5))
+                if (CheckNum(choice, 6))
                 {
                     go = false;
                 }
@@ -100,18 +101,34 @@ namespace GC_Fitness_24
                 }
                 if (choice == "4")
                 {
-                    bool go4 = true;
-                    while (go4)
+                    Console.Write("Please enter the club name: ");
+                    string input = Console.ReadLine();
+                    foreach (Club cl in Clubs)
                     {
-                        Console.WriteLine("Will this member be a single or multi club member? Enter 1 for single and 2 for multi.");
-                        //if (CheckNum(Console.ReadLine(), 2) = false) ;
-                        Console.WriteLine("Please enter the new member's first and last name.");
-                        string name = Console.ReadLine();
-                        Console.WriteLine("Please enter the member number.");
-                        string memNumber = Console.ReadLine();
-                        Console.WriteLine("Which location are you at?");
+                        if (cl.Name.Equals(input))
+                        {
+                            Console.WriteLine("Is this member:\n" +
+                                "1. Single-Club Member" +
+                                "2. Multi-Club Member");
+                            int num = int.Parse(Console.ReadLine());
+                            if (num == 0)
+                            {
+                                Console.WriteLine("Please enter the member's name that you would like to add: ");
+                                string name = Console.ReadLine();
+                                Console.WriteLine("Please enter the member's id: ");
+                                string id = Console.ReadLine();
+                                cl.AddMember(new SingleClub(name, id, cl.Name));
+                            }
+                            if (num == 1)
+                            {
+                                Console.WriteLine("Please enter the member's name that you would like to add: ");
+                                string name = Console.ReadLine();
+                                Console.WriteLine("Please enter the member's id: ");
+                                string id = Console.ReadLine();
+                                cl.AddMember(new MultiClub(name, id));
+                            }                        
+                        }
                     }
-
                 }
                 if (choice == "5")
                 {
@@ -133,11 +150,11 @@ namespace GC_Fitness_24
                         }
                     }
                 }
-                else
+                if (choice == "6")                
                 {
-
+                    Console.WriteLine("Quitting program.");
+                    go = false;
                 }
-
             }
         }
 
