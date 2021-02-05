@@ -8,7 +8,7 @@ namespace GC_Fitness_24
     {
         public int Points { get; set; }
         //membership type 
-        public MultiClub(string name, string id, int points) : base(name, id)
+        public MultiClub(string name, string id, int points = 100) : base(name, id)
         {
             this.Points = points;
         }
