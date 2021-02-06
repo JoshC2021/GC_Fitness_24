@@ -57,7 +57,7 @@ namespace GC_Fitness_24
                 int menuChoice;
                 // CHECK FOR VALID INPUT
                 bool isValid = Int32.TryParse(Console.ReadLine(), out menuChoice);
-                if (isValid && menuChoice <=6 && menuChoice >=1)
+                if (isValid && menuChoice <6 && menuChoice >=1)
                 {
                     do 
                     { 
@@ -154,15 +154,16 @@ namespace GC_Fitness_24
                                     }
                                     Console.Write("Do you want to continue removing members(Y/N)?");
                                     break;
-                                default: // QUIT PROGRAM
-                                    Console.WriteLine("Quitting program...");
-                                    isGoing = false;
-                                 break;
-
                             } 
+
                             input = Console.ReadLine();
-                        } while (ConfirmSelection(input));
-                    }         
+                    } while (ConfirmSelection(input));
+                }
+                else if(isValid && menuChoice == 6) // QUIT PROGRAM
+                {
+                    Console.WriteLine("Quitting program...");
+                    isGoing = false;  
+                }
                 else // Entry not in menu
                 {
                     Console.WriteLine("Unavailable option. Try again.");
