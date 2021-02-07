@@ -75,46 +75,38 @@ namespace GC_Fitness_24
                 // CHECK IN A MEMBER
                 if (choice == "1")
                 {
-                    bool go1 = true;
-                    while (go1)
+                    int member1 = FindMember(establishment); // return -1 if no member found
+                    while (member1 == -1)
                     {
-                        int member1 = FindMember(establishment); // return -1 if no member found
-                        if (member1 != -1)
-                        {
-                            membersList[member1].CheckIn(establishment);
-                            Console.WriteLine("Checked in");
-                        }
-                        break;
-                        //if (CheckNum(choice1, 5)) //CHANGE TO LIST.COUNT
-                        //{
-                        //    go1 = false;
-                        //    //CheckIn()
-                        //}
-                        //else
-                        //{
-                        //    go1 = true;
-                        //}
-                    }
+                        Console.WriteLine("\nNo member found with that name. Try again.");
+                        member1 = FindMember(establishment);
+                    }  
+                    membersList[member1].CheckIn(establishment);
+                    Console.WriteLine($"{membersList[member1].Name} checked in!");
                 }
 
                 // SEARCH FOR MEMBER AND DISPLAY INFO
                 if (choice == "2")
                 {
                     int member2 = FindMember(establishment); // return -1 if no member found
-                    if(member2 ==-1)
+                    while(member2 == -1)
                     {
-                        Console.WriteLine("No member found with that name");
+                        Console.WriteLine("\nNo member found with that name. Try again.");
+                        member2 = FindMember(establishment);
                     }
-                    else
-                    {
-                        Console.WriteLine(membersList[member2]);
-                    }
+                    Console.WriteLine();
+                    Console.WriteLine(membersList[member2]);
                 }
 
                 // GENERATE BILL FOR USER
                 if (choice == "3")
                 {
                     int member3 = FindMember(establishment);
+                    while(member3 == -1)
+                    {
+                        Console.WriteLine("\nNo member found with that name. Try again.");
+                        member3 = FindMember(establishment);
+                    }
                     string bill = $"{membersList[member3].Name} Amount Dues: $";
                     if (membersList[member3] is MultiClub) // membership have $40 for monthly fee
                     {
@@ -135,8 +127,16 @@ namespace GC_Fitness_24
                         "1. Single-Club Member\n" +
                         "2. Multi-Club Member");
                     Console.Write("\nWhat kind of member is this (1-2): ");
-                    int num = int.Parse(Console.ReadLine());
-                    if (num == 1)
+                    string input = Console.ReadLine();
+                    while((CheckNum(input, 2)) == false)
+                    {
+                        Console.WriteLine("\nMembership Options:\n" +
+                        "1. Single-Club Member\n" +
+                        "2. Multi-Club Member");
+                        Console.Write("\nWhat kind of member is this (1-2): ");
+                        input = Console.ReadLine();
+                    }
+                    if (input == "1")
                     {
                         Console.Write("\nPlease enter the member's name that you would like to add: ");
                         string name = Console.ReadLine();
@@ -144,7 +144,7 @@ namespace GC_Fitness_24
                         string id = Console.ReadLine();
                         membersList.Add(new SingleClub(id, name, establishment.Name));
                     }
-                    if (num == 2)
+                    if (input == "2")
                     {
                         Console.Write("\nPlease enter the member's name that you would like to add:  ");
                         string name = Console.ReadLine();
@@ -157,7 +157,13 @@ namespace GC_Fitness_24
                 // FIND MEMBER IN CLUB THEN DELETE FROM LIST
                 if (choice == "5")
                 {
-                    membersList.RemoveAt(FindMember(establishment));
+                    int member5 = FindMember(establishment);
+                    while (member5 == -1)
+                    {
+                        Console.WriteLine("\nNo member found with that name. Try again.");
+                        member5 = FindMember(establishment);
+                    }
+                    membersList.RemoveAt(member5);
 
                 }
                 // QUIT PROGRAM
@@ -201,7 +207,7 @@ namespace GC_Fitness_24
 
         public static int FindMember(Club chosenClub)
         {
-            Console.WriteLine("Please enter the full name of the member");
+            Console.Write("Please enter the full name of the member:   ");
             string name = Console.ReadLine().Trim().ToLower();
             int memberIndex = -1;
             for (int i = 0; i < membersList.Count; i++)
