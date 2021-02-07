@@ -76,6 +76,7 @@ namespace GC_Fitness_24
                 if (choice == "1")
                 {
                     int member1 = FindMember(establishment); // return -1 if no member found
+                    // validation(FindMember() == -1)
                     while (member1 == -1)
                     {
                         Console.WriteLine("\nNo member found with that name. Try again.");
@@ -89,7 +90,8 @@ namespace GC_Fitness_24
                 if (choice == "2")
                 {
                     int member2 = FindMember(establishment); // return -1 if no member found
-                    while(member2 == -1)
+                    // validation(FindMember() == -1)
+                    while (member2 == -1)
                     {
                         Console.WriteLine("\nNo member found with that name. Try again.");
                         member2 = FindMember(establishment);
@@ -102,7 +104,8 @@ namespace GC_Fitness_24
                 if (choice == "3")
                 {
                     int member3 = FindMember(establishment);
-                    while(member3 == -1)
+                    // validation(FindMember() == -1)
+                    while (member3 == -1)
                     {
                         Console.WriteLine("\nNo member found with that name. Try again.");
                         member3 = FindMember(establishment);
@@ -158,6 +161,7 @@ namespace GC_Fitness_24
                 if (choice == "5")
                 {
                     int member5 = FindMember(establishment);
+                    // validation(FindMember() == -1)
                     while (member5 == -1)
                     {
                         Console.WriteLine("\nNo member found with that name. Try again.");
