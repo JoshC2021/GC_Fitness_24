@@ -289,7 +289,7 @@ namespace GC_Fitness_24
             Console.WriteLine("6) Display all active members in club");
             Console.WriteLine("7) Change establishments");
             Console.WriteLine("8) Quit");
-            Console.Write("\nPlease press the number of your selection (1-7): ");
+            Console.Write("\nPlease press the number of your selection (1-8): ");
         }
 
         public static bool ConfirmSelection(string s)
@@ -370,7 +370,7 @@ namespace GC_Fitness_24
         // wrtie updates to members textfile from list
         public static void WriteMembers()
         {
-            string filePath = @"Members.txt";
+            string filePath = @"../../../Members.txt";
             StreamWriter writer;
             StreamWriter append;
             //stops compiler complaining
