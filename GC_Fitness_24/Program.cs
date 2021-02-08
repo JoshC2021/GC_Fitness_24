@@ -44,7 +44,14 @@ namespace GC_Fitness_24
                 Console.WriteLine($"{i + 1}. {Clubs.ElementAt(i).Name}, {Clubs.ElementAt(i).Address}");
             }
             Console.Write($"\nWhich club are you in (1-{numberOfClubs}):   ");
-            int chooseClub = GetNumberInRange(1,numberOfClubs);
+            string userSelection;
+            int chooseClub = -1;
+            do
+            {
+                userSelection = Console.ReadLine();
+                chooseClub = CheckNum(userSelection, 6);
+            } while (chooseClub == -1);
+
             Club establishment = Clubs.ElementAt(chooseClub - 1);
             Console.WriteLine($"\nEstablishment set to:   {establishment.Name}, {establishment.Address}");
 
@@ -55,8 +62,14 @@ namespace GC_Fitness_24
                 // HAVE USER ENTER A NUMBER FOR OPTION
                 PrintPrompt();
                 string input;
-                int menuChoice = GetNumberInRange(1,6);
-                
+
+                int menuChoice = -1;        
+                do
+                {
+                    input = Console.ReadLine();
+                    menuChoice = CheckNum(input, 6);
+                } while (menuChoice == -1);
+
                 // EXECUTING SELECTED MENU OPTION
                 if (menuChoice < 6 && menuChoice >= 1)
                 {
@@ -172,16 +185,30 @@ namespace GC_Fitness_24
 
         ///***********************EXTERNAL METHODS*****************************///
 
-        // VALIDATE THE NUMBER USER INPUTTED IN RANGE
-        public static int GetNumberInRange(int x, int y)
-        {
-            int userNum;
-            while (!int.TryParse(Console.ReadLine(), out userNum) || userNum < x || userNum > y)
+        static int CheckNum(string choice, int max)
+        {// validates int is a valid input 
+
+            if (String.IsNullOrEmpty(choice))
             {
-                Console.WriteLine($"Sorry, I need the number between {x} and {y} inclusive\n");
-                Console.Write($"Please enter again: ");
+                Console.WriteLine($"Please enter a number between 1 and {max}!");
+                return -1;
             }
-            return userNum;
+            else
+            {
+                int b;
+                bool valid = Int32.TryParse(choice, out b);
+                if (valid && (int.Parse(choice) > 0) && (int.Parse(choice) <= max))
+                {
+
+                    return b;
+
+                }
+                else
+                {
+                    Console.WriteLine($"Please enter a number between 1 and {max}!");
+                    return -1;
+                }
+            }
         }
 
         public static int FindMember(Club chosenClub)
