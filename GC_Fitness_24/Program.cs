@@ -49,7 +49,7 @@ namespace GC_Fitness_24
             do
             {
                 userSelection = Console.ReadLine();
-                chooseClub = CheckNum(userSelection, 6);
+                chooseClub = CheckNum(userSelection, numberOfClubs);
             } while (chooseClub == -1);
 
             Club establishment = Clubs.ElementAt(chooseClub - 1);
@@ -133,7 +133,8 @@ namespace GC_Fitness_24
                                                   "1. Single-Club Member\n" +
                                                   "2. Multi-Club Member");
                                 Console.Write("\nWhat kind of member is this (1-2): ");
-                                int num = int.Parse(Console.ReadLine());
+                                string pickNum = Console.ReadLine();
+                                int num = CheckNum(pickNum,2);
                                 if (num == 1)
                                 {
                                     Console.Write("\nPlease enter the member's name that you would like to add: ");
