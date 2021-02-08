@@ -67,11 +67,11 @@ namespace GC_Fitness_24
                 do
                 {
                     input = Console.ReadLine();
-                    menuChoice = CheckNum(input, 6);
+                    menuChoice = CheckNum(input, 7);
                 } while (menuChoice == -1);
 
                 // EXECUTING SELECTED MENU OPTION
-                if (menuChoice < 6 && menuChoice >= 1)
+                if (menuChoice < 7 && menuChoice >= 1)
                 {
                     do
                     {
@@ -168,6 +168,26 @@ namespace GC_Fitness_24
                                     Console.WriteLine("Member Removed");
                                 }
                                 Console.Write("Do you want to continue removing members(Y/N)?");
+                                break;
+                            case 6: // DISPLAY ALL MEMBERS
+                                Console.WriteLine("Active Members:");
+                                Console.WriteLine("___________________________________");
+                                foreach(Members m in membersList)
+                                {
+                                    if(m is SingleClub)
+                                    {
+                                        SingleClub temp = (SingleClub)m;
+                                        if(temp.HomeClub == establishment.Name)
+                                        {
+                                            Console.WriteLine(m);
+                                        }                                        
+                                    }
+                                    if(m is MultiClub)
+                                    {
+                                        Console.WriteLine(m);
+                                    }
+                                }
+                                Console.Write("Do you want to continue Adding members(Y/N)?");
                                 break;
                         }
 
@@ -269,8 +289,9 @@ namespace GC_Fitness_24
             Console.WriteLine("3) Print out an invoice.");
             Console.WriteLine("4) Add member.");
             Console.WriteLine("5) Delete member.");
-            Console.WriteLine("6) Quit");
-            Console.Write("\nPlease press the number of your selection (1-6): ");
+            Console.WriteLine("6) Display all active members in club");
+            Console.WriteLine("7) Quit");
+            Console.Write("\nPlease press the number of your selection (1-7): ");
         }
 
         public static bool ConfirmSelection(string s)
