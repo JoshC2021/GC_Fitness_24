@@ -37,41 +37,25 @@ namespace GC_Fitness_24
             Console.WriteLine("Welcome to GC Fitness 24. Hard bodies, sharp minds!");
 
             // HAVE USER SELECT WHICH CLUB THEY WOULD LIKE ACCESS TO
-            Console.WriteLine("\nList of establishments: ");
-            int numberOfClubs = Clubs.Count;
-            for (int i = 0; i < numberOfClubs; i++)
-            {
-                Console.WriteLine($"{i + 1}. {Clubs.ElementAt(i).Name}, {Clubs.ElementAt(i).Address}");
-            }
-            Console.Write($"\nWhich club are you in (1-{numberOfClubs}):   ");
-            string userSelection;
-            int chooseClub = -1;
-            do
-            {
-                userSelection = Console.ReadLine();
-                chooseClub = CheckNum(userSelection, numberOfClubs);
-            } while (chooseClub == -1);
-
-            Club establishment = Clubs.ElementAt(chooseClub - 1);
-            Console.WriteLine($"\nEstablishment set to:   {establishment.Name}, {establishment.Address}");
+            Club establishment = SelectClub();
 
             //MENU
             bool isGoing = true;
             while (isGoing)
             {
                 // HAVE USER ENTER A NUMBER FOR OPTION
-                PrintPrompt();
+                PrintPrompt(establishment);
                 string input;
 
-                int menuChoice = -1;        
+                int menuChoice = -1;
                 do
                 {
                     input = Console.ReadLine();
-                    menuChoice = CheckNum(input, 7);
+                    menuChoice = CheckNum(input, 8);
                 } while (menuChoice == -1);
 
                 // EXECUTING SELECTED MENU OPTION
-                if (menuChoice < 7 && menuChoice >= 1)
+                if (menuChoice < 8 && menuChoice >= 1)
                 {
                     do
                     {
@@ -134,7 +118,7 @@ namespace GC_Fitness_24
                                                   "2. Multi-Club Member");
                                 Console.Write("\nWhat kind of member is this (1-2): ");
                                 string pickNum = Console.ReadLine();
-                                int num = CheckNum(pickNum,2);
+                                int num = CheckNum(pickNum, 2);
                                 if (num == 1)
                                 {
                                     Console.Write("\nPlease enter the member's name that you would like to add: ");
@@ -172,22 +156,26 @@ namespace GC_Fitness_24
                             case 6: // DISPLAY ALL MEMBERS
                                 Console.WriteLine("Active Members:");
                                 Console.WriteLine("___________________________________");
-                                foreach(Members m in membersList)
+                                foreach (Members m in membersList)
                                 {
-                                    if(m is SingleClub)
+                                    if (m is SingleClub)
                                     {
                                         SingleClub temp = (SingleClub)m;
-                                        if(temp.HomeClub == establishment.Name)
+                                        if (temp.HomeClub == establishment.Name)
                                         {
                                             Console.WriteLine(m);
-                                        }                                        
+                                        }
                                     }
-                                    if(m is MultiClub)
+                                    if (m is MultiClub)
                                     {
                                         Console.WriteLine(m);
                                     }
                                 }
-                                Console.Write("Do you want to continue Adding members(Y/N)?");
+                                Console.Write("Do you want to display members again(Y/N)?");
+                                break;
+                            case 7: // 
+                                establishment = SelectClub();
+                                Console.Write($"Changing clubs... Would you like to select another club(Y/N)?");
                                 break;
                         }
 
@@ -202,8 +190,30 @@ namespace GC_Fitness_24
 
             }
         }
-      
+
         ///***********************EXTERNAL METHODS*****************************///
+        public static Club SelectClub()
+        {
+            Console.WriteLine("\nList of establishments: ");
+            int numberOfClubs = Clubs.Count;
+            for (int i = 0; i < numberOfClubs; i++)
+            {
+                Console.WriteLine($"{i + 1}. {Clubs.ElementAt(i).Name}, {Clubs.ElementAt(i).Address}");
+            }
+            Console.Write($"\nWhich club are you in (1-{numberOfClubs}):   ");
+            string userSelection;
+            int chooseClub = -1;
+            do
+            {
+                userSelection = Console.ReadLine();
+                chooseClub = CheckNum(userSelection, numberOfClubs);
+            } while (chooseClub == -1);
+
+            Club establishment = Clubs.ElementAt(chooseClub - 1);
+            Console.WriteLine($"\nEstablishment set to:   {establishment.Name}, {establishment.Address}");
+            return establishment;
+        }
+
 
         static int CheckNum(string choice, int max)
         {// validates int is a valid input 
@@ -281,8 +291,9 @@ namespace GC_Fitness_24
         }
 
         // directs user to enter a number
-        public static void PrintPrompt()
-        {
+        public static void PrintPrompt(Club club)
+        {            
+            Console.WriteLine($"\nCLUB: {club.Name}");
             Console.WriteLine("\nWhat would you like to do today?");
             Console.WriteLine("1) Check in a member.");
             Console.WriteLine("2) Search for a member");
@@ -290,7 +301,8 @@ namespace GC_Fitness_24
             Console.WriteLine("4) Add member.");
             Console.WriteLine("5) Delete member.");
             Console.WriteLine("6) Display all active members in club");
-            Console.WriteLine("7) Quit");
+            Console.WriteLine("7) Change establishments");
+            Console.WriteLine("8) Quit");
             Console.Write("\nPlease press the number of your selection (1-7): ");
         }
 
