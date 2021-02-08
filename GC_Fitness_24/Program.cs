@@ -8,6 +8,9 @@ namespace GC_Fitness_24
 {
     class Program
     {
+        private const string clubFilePath = @"../../../Clubs.txt";
+        private const string memberFilePath = @"../../../Members.txt";
+
         // LIST OF SAMPLE CLUBS
         public static List<Club> Clubs = new List<Club>();
 
@@ -86,11 +89,11 @@ namespace GC_Fitness_24
                                 else
                                 {
                                     string bill = $"{membersList[member3].Name} Amount Dues: $";
-                                    if (membersList[member3] is MultiClub) // membership have $40 for monthly fee
+                                    if (membersList[member3] is MultiClub mc) // membership have $40 for monthly fee
                                     {
-                                        MultiClub temp = (MultiClub)membersList[member3];
 
-                                        bill += $"40\nMembership Points: {temp.Points}"; // need to cast
+
+                                        bill += $"40\nMembership Points: {mc.Points}"; // need to cast
                                     }
                                     else
                                     {
@@ -146,10 +149,10 @@ namespace GC_Fitness_24
                                 Console.WriteLine("___________________________________");
                                 foreach (Members m in membersList)
                                 {
-                                    if (m is SingleClub)
+                                    if (m is SingleClub sc)
                                     {
-                                        SingleClub temp = (SingleClub)m;
-                                        if (temp.HomeClub == establishment.Name)
+
+                                        if (sc.HomeClub == establishment.Name)
                                         {
                                             Console.WriteLine(m);
                                         }
@@ -235,9 +238,9 @@ namespace GC_Fitness_24
             for (int i = 0; i < membersList.Count; i++)
             {
                 bool isInList = (name == membersList[i].Name.ToLower());
-                if (membersList[i] is SingleClub) // check to see if belongs to spefic club
+                if (membersList[i] is SingleClub sc) // check to see if belongs to spefic club
                 {
-                    if (((SingleClub)membersList[i]).HomeClub == chosenClub.Name && isInList)
+                    if (sc.HomeClub == chosenClub.Name && isInList)
                     {
                         memberIndex = i;
                     }
@@ -314,7 +317,7 @@ namespace GC_Fitness_24
         public static void ReadClubs()
         {
             //exact amount of ../ depends on bin folder location
-            string filePath = @"../../../Clubs.txt"; 
+            string filePath = clubFilePath; 
             StreamReader reader;
             try
             {
@@ -338,7 +341,7 @@ namespace GC_Fitness_24
         public static void ReadMembers()
         {
             //exact amount of ../ depends on bin folder location
-            string filePath = @"../../../Members.txt";
+            string filePath = memberFilePath;
             StreamReader reader;
             try
             {
@@ -370,7 +373,7 @@ namespace GC_Fitness_24
         // wrtie updates to members textfile from list
         public static void WriteMembers()
         {
-            string filePath = @"../../../Members.txt";
+            string filePath = memberFilePath;
             StreamWriter writer;
             StreamWriter append;
             //stops compiler complaining
