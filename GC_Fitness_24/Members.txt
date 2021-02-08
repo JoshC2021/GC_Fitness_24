@@ -1,0 +1,6 @@
+"893644", "Jessica Rabbit","Detroit",s,0
+"936420", "Donovan Bridges",All,m,200
+"324230", "Cassidy Kramer","Livonia",s,0
+"424678", "Logan Brown","New Center",s,0
+"876543", "Evan Evanston",All,m,321
+"660832", "Wendi Magee",All,m,200

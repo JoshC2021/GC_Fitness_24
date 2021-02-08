@@ -2,37 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.IO;
 
 namespace GC_Fitness_24
 {
     class Program
     {
         // LIST OF SAMPLE CLUBS
-        public static List<Club> Clubs = new List<Club>()
-        {
-            new Club("Oregon", "35645 Somewhere", 10),
-            new Club("Livonia","54735 Newburgh", 10),
-            new Club("Livonia", "46756 Merriman", 12),
-            new Club("Detroit", "97425 Jefferson", 19),
-            new Club("Detroit","53662 Main", 25),
-            new Club("Detroit", "97595 Main", 25),
-            new Club("New Center", "42345 Baltimore", 21)
-        };
+        public static List<Club> Clubs = new List<Club>();
 
 
         // LIST OF SAMPLE MEMBERS
-        public static List<Members> membersList = new List<Members>()
-        {
-            new SingleClub("893644", "Jessica Rabbit", "Detroit"),
-            new MultiClub("936420", "Donovan Bridges", 200),
-            new SingleClub("324230", "Cassidy Kramer", "Livonia"),
-            new SingleClub("424678", "Logan Brown", "New Center"),
-            new MultiClub("876543", "Evan Evanston", 321),
-            new MultiClub("660832", "Wendi Magee", 200)
-        };
+        public static List<Members> membersList = new List<Members>();
 
         static void Main(string[] args)
         {
+            // Populating tables
+            ReadClubs();
+            ReadMembers();
             // INTRO
             Console.WriteLine("Welcome to GC Fitness 24. Hard bodies, sharp minds!");
 
@@ -51,6 +38,7 @@ namespace GC_Fitness_24
                 do
                 {
                     input = Console.ReadLine();
+
                     menuChoice = CheckNum(input, 8);
                 } while (menuChoice == -1);
 
@@ -185,6 +173,7 @@ namespace GC_Fitness_24
                 else// QUIT PROGRAM
                 {
                     Console.WriteLine("Quitting program...");
+                    WriteMembers();
                     isGoing = false;
                 }
 
@@ -215,6 +204,27 @@ namespace GC_Fitness_24
         }
 
 
+        public static Club SelectClub()
+        {
+            Console.WriteLine("\nList of establishments: ");
+            int numberOfClubs = Clubs.Count;
+            for (int i = 0; i < numberOfClubs; i++)
+            {
+                Console.WriteLine($"{i + 1}. {Clubs.ElementAt(i).Name}, {Clubs.ElementAt(i).Address}");
+            }
+            Console.Write($"\nWhich club are you in (1-{numberOfClubs}):   ");
+            string userSelection;
+            int chooseClub = -1;
+            do
+            {
+                userSelection = Console.ReadLine();
+                chooseClub = CheckNum(userSelection, numberOfClubs);
+            } while (chooseClub == -1);
+
+            Club establishment = Clubs.ElementAt(chooseClub - 1);
+            Console.WriteLine($"\nEstablishment set to:   {establishment.Name}, {establishment.Address}");
+            return establishment;
+        }
         static int CheckNum(string choice, int max)
         {// validates int is a valid input 
 
@@ -229,9 +239,7 @@ namespace GC_Fitness_24
                 bool valid = Int32.TryParse(choice, out b);
                 if (valid && (int.Parse(choice) > 0) && (int.Parse(choice) <= max))
                 {
-
                     return b;
-
                 }
                 else
                 {
@@ -323,7 +331,118 @@ namespace GC_Fitness_24
             }
             return true;
         }
+
+        // read from Clubs  textfile into list
+        public static void ReadClubs()
+        {
+            //exact amount of ../ depends on bin folder location
+            string filePath = @"../../../Clubs.txt"; 
+            StreamReader reader;
+            try
+            {
+                reader = new StreamReader(filePath);
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    string[] clubInfo = line.Split(',');
+                    Clubs.Add(new Club(clubInfo[0], clubInfo[1], int.Parse(clubInfo[2])));
+                }
+                reader.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+            }
+        }
+
+        // read from members textfile into list
+        public static void ReadMembers()
+        {
+            //exact amount of ../ depends on bin folder location
+            string filePath = @"../../../Members.txt";
+            StreamReader reader;
+            try
+            {
+                reader = new StreamReader(filePath);
+                string line;
+                int count = 0;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    string[] memberInfo = line.Split(',');
+                    if (memberInfo[3] == "s") // check if given record a single or multi club
+                    {
+                        membersList.Add(new SingleClub(memberInfo[0], memberInfo[1], memberInfo[2]));
+                    }
+                    else
+                    {
+                        membersList.Add(new MultiClub(memberInfo[0], memberInfo[1], int.Parse(memberInfo[4])));
+                    }
+                    count++;
+                }
+                reader.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+            }
+        }
+
+        // wrtie updates to members textfile from list
+        public static void WriteMembers()
+        {
+            string filePath = @"Members.txt";
+            StreamWriter writer;
+            StreamWriter append;
+            //stops compiler complaining
+            try
+            {
+                append = new StreamWriter(filePath, true);
+                append.Close();
+                writer = new StreamWriter(filePath);
+                for (int i = 0; i < membersList.Count; i++)
+                {
+                    string addition = "";
+                    if (membersList[i] is SingleClub)
+                    {
+                        SingleClub single = (SingleClub)membersList[i];
+                        addition += $"{single.Id},{single.Name},{single.HomeClub},s,0";
+                    }
+                    else
+                    {
+                        MultiClub multi = (MultiClub)membersList[i];
+                        addition += $"{multi.Id},{multi.Name},All,m,{multi.Points}";
+                    }
+
+                    if (i == 0)
+                    {
+                        writer.WriteLine(addition);
+                        writer.Close();
+                        append = new StreamWriter(filePath, true);
+                    }
+                    else
+                    {
+                        append.WriteLine(addition);
+                    }
+                }
+                if (membersList.Count <= 0) // makes sure to close file if no members in List
+                {
+                    writer.Close();
+                }
+                else
+                {
+                    append.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+            }
+        }
+
         ///***********************EXTERNAL METHODS*****************************///
 
     }
-}
+    }
