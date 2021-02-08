@@ -34,11 +34,12 @@ namespace GC_Fitness_24
                 PrintPrompt(establishment);
                 string input;
 
-                int menuChoice = -1;        
+                int menuChoice = -1;
                 do
                 {
                     input = Console.ReadLine();
-                    menuChoice = CheckNum(input,8);
+
+                    menuChoice = CheckNum(input, 8);
                 } while (menuChoice == -1);
 
                 // EXECUTING SELECTED MENU OPTION
@@ -104,7 +105,8 @@ namespace GC_Fitness_24
                                                   "1. Single-Club Member\n" +
                                                   "2. Multi-Club Member");
                                 Console.Write("\nWhat kind of member is this (1-2): ");
-                                int num = int.Parse(Console.ReadLine());
+                                string pickNum = Console.ReadLine();
+                                int num = CheckNum(pickNum, 2);
                                 if (num == 1)
                                 {
                                     Console.Write("\nPlease enter the member's name that you would like to add: ");
@@ -178,8 +180,29 @@ namespace GC_Fitness_24
             }
         }
 
-
         ///***********************EXTERNAL METHODS*****************************///
+        public static Club SelectClub()
+        {
+            Console.WriteLine("\nList of establishments: ");
+            int numberOfClubs = Clubs.Count;
+            for (int i = 0; i < numberOfClubs; i++)
+            {
+                Console.WriteLine($"{i + 1}. {Clubs.ElementAt(i).Name}, {Clubs.ElementAt(i).Address}");
+            }
+            Console.Write($"\nWhich club are you in (1-{numberOfClubs}):   ");
+            string userSelection;
+            int chooseClub = -1;
+            do
+            {
+                userSelection = Console.ReadLine();
+                chooseClub = CheckNum(userSelection, numberOfClubs);
+            } while (chooseClub == -1);
+
+            Club establishment = Clubs.ElementAt(chooseClub - 1);
+            Console.WriteLine($"\nEstablishment set to:   {establishment.Name}, {establishment.Address}");
+            return establishment;
+        }
+
 
         public static Club SelectClub()
         {
@@ -228,7 +251,7 @@ namespace GC_Fitness_24
 
         public static int FindMember(Club chosenClub)
         {
-            Console.WriteLine("Please enter the full name of the member");
+            Console.Write("Please enter the full name of the member:   ");
             string name = Console.ReadLine().Trim().ToLower();
             int memberIndex = -1;
             for (int i = 0; i < membersList.Count; i++)
@@ -277,7 +300,7 @@ namespace GC_Fitness_24
 
         // directs user to enter a number
         public static void PrintPrompt(Club club)
-        {
+        {            
             Console.WriteLine($"\nCLUB: {club.Name}");
             Console.WriteLine("\nWhat would you like to do today?");
             Console.WriteLine("1) Check in a member.");
