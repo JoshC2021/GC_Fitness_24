@@ -213,7 +213,7 @@ namespace GC_Fitness_24
 
         public static int FindMember(Club chosenClub)
         {
-            Console.WriteLine("Please enter the full name of the member");
+            Console.Write("Please enter the full name of the member:   ");
             string name = Console.ReadLine().Trim().ToLower();
             int memberIndex = -1;
             for (int i = 0; i < membersList.Count; i++)
