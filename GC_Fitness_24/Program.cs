@@ -203,28 +203,6 @@ namespace GC_Fitness_24
             return establishment;
         }
 
-
-        public static Club SelectClub()
-        {
-            Console.WriteLine("\nList of establishments: ");
-            int numberOfClubs = Clubs.Count;
-            for (int i = 0; i < numberOfClubs; i++)
-            {
-                Console.WriteLine($"{i + 1}. {Clubs.ElementAt(i).Name}, {Clubs.ElementAt(i).Address}");
-            }
-            Console.Write($"\nWhich club are you in (1-{numberOfClubs}):   ");
-            string userSelection;
-            int chooseClub = -1;
-            do
-            {
-                userSelection = Console.ReadLine();
-                chooseClub = CheckNum(userSelection, numberOfClubs);
-            } while (chooseClub == -1);
-
-            Club establishment = Clubs.ElementAt(chooseClub - 1);
-            Console.WriteLine($"\nEstablishment set to:   {establishment.Name}, {establishment.Address}");
-            return establishment;
-        }
         static int CheckNum(string choice, int max)
         {// validates int is a valid input 
 
