@@ -181,8 +181,7 @@ namespace GC_Fitness_24
 
             }
         }
-
-
+      
         ///***********************EXTERNAL METHODS*****************************///
 
         static int CheckNum(string choice, int max)
